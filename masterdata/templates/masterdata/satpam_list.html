@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Satpam</title>
+    <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/adminlte.min.css' %}">
+</head>
+<body class="p-4">
+    <div class="container">
+        <h2>Data Satpam</h2>
+        <a href="{% url 'satpam_create' %}" class="btn btn-primary mb-3">Tambah Satpam</a>
+
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>NIK</th>
+                    <th>Alamat</th>
+                    <th>No HP</th>
+                    <th>Shift</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in data %}
+                <tr>
+                    <td>{{ s.id }}</td>
+                    <td>{{ s.nama }}</td>
+                    <td>{{ s.nik }}</td>
+                    <td>{{ s.alamat }}</td>
+                    <td>{{ s.no_hp }}</td>
+                    <td>{{ s.shift }}</td>
+                    <td>
+                        <a href="{% url 'satpam_update' s.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'satpam_delete' s.id %}" class="btn btn-sm btn-danger">Hapus</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center">Belum ada data</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

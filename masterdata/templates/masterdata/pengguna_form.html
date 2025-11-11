@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Pengguna</title>
+    <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/adminlte.min.css' %}">
+</head>
+<body class="p-4">
+    <div class="container">
+        <h2>{{ pengguna|default_if_none:"Tambah Pengguna" }}</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label>Nama</label>
+                <input type="text" name="nama" class="form-control" value="{{ pengguna.nama|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" value="{{ pengguna.username|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" value="{{ pengguna.password|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label>Role</label>
+                <select name="role" class="form-control">
+                    <option value="admin" {% if pengguna.role == 'admin' %}selected{% endif %}>Admin</option>
+                    <option value="satpam" {% if pengguna.role == 'satpam' %}selected{% endif %}>Satpam</option>
+                    <option value="tamu" {% if pengguna.role == 'tamu' %}selected{% endif %}>Tamu</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <a href="{% url 'pengguna_list' %}" class="btn btn-secondary">Kembali</a>
+        </form>
+    </div>
+</body>
+</html>

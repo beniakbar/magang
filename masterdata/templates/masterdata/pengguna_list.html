@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Pengguna</title>
+    <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/adminlte.min.css' %}">
+</head>
+<body class="p-4">
+    <div class="container">
+        <h2>Data Pengguna</h2>
+        <a href="{% url 'pengguna_create' %}" class="btn btn-primary mb-3">Tambah Pengguna</a>
+
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in data %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.nama }}</td>
+                    <td>{{ p.username }}</td>
+                    <td>{{ p.role }}</td>
+                    <td>
+                        <a href="{% url 'pengguna_update' p.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'pengguna_delete' p.id %}" class="btn btn-sm btn-danger">Hapus</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="text-center">Belum ada data</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

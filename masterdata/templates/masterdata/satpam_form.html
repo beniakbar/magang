@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Satpam</title>
+    <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/adminlte.min.css' %}">
+</head>
+<body class="p-4">
+    <div class="container">
+        <h2>{{ satpam|default_if_none:"Tambah Satpam" }}</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label>Nama</label>
+                <input type="text" name="nama" class="form-control" value="{{ satpam.nama|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label>NIK</label>
+                <input type="text" name="nik" class="form-control" value="{{ satpam.nik|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label>Alamat</label>
+                <textarea name="alamat" class="form-control">{{ satpam.alamat|default:'' }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label>No HP</label>
+                <input type="text" name="no_hp" class="form-control" value="{{ satpam.no_hp|default:'' }}">
+            </div>
+            <div class="mb-3">
+                <label>Shift</label>
+                <select name="shift" class="form-control">
+                    <option value="pagi" {% if satpam.shift == 'pagi' %}selected{% endif %}>Pagi</option>
+                    <option value="siang" {% if satpam.shift == 'siang' %}selected{% endif %}>Siang</option>
+                    <option value="malam" {% if satpam.shift == 'malam' %}selected{% endif %}>Malam</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <a href="{% url 'satpam_list' %}" class="btn btn-secondary">Kembali</a>
+        </form>
+    </div>
+</body>
+</html>

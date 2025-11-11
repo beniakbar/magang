@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hapus Satpam</title>
+    <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/adminlte.min.css' %}">
+</head>
+<body class="p-4">
+    <div class="container text-center">
+        <h3>Yakin ingin menghapus data satpam <strong>{{ satpam.nama }}</strong>?</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+            <a href="{% url 'satpam_list' %}" class="btn btn-secondary">Batal</a>
+        </form>
+    </div>
+</body>
+</html>
