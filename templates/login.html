@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/static/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/static/AdminLTE/dist/css/adminlte.min.css">
+
+</head>
+<body class="hold-transition login-page">
+
+<div class="login-box">
+    <div class="login-logo">
+        <b>Login</b> Satpam
+    </div>
+
+    <div class="card">
+        <div class="card-body login-card-body">
+
+            <p id="msg" style="color:red;"></p>
+
+            <form id="loginForm">
+
+                <div class="input-group mb-3">
+                    <input type="text" id="username" class="form-control" placeholder="Username" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="password" id="password" class="form-control" placeholder="Password" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const data = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+    };
+
+    let res = await fetch("http://10.0.2.2:8000/api/login/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    });
+
+    let json = await res.json();
+
+    if (json.error) {
+        document.getElementById("msg").innerText = json.error;
+    } else {
+        // simpan token ke localStorage
+        localStorage.setItem("token", json.token);
+        // redirect ke dashboard
+        window.location.href = "/dashboard/";
+    }
+});
+</script>
+
+</body>
+</html>

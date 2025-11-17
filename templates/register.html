@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="/static/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/static/AdminLTE/dist/css/adminlte.min.css">
+
+</head>
+<body class="hold-transition register-page">
+
+<div class="register-box">
+    <div class="register-logo">
+        <b>Register</b> Akun Satpam
+    </div>
+
+    <div class="card">
+        <div class="card-body register-card-body">
+
+            <p id="msg" style="color:red;"></p>
+
+            <form id="regForm">
+
+                <div class="input-group mb-3">
+                    <input type="text" id="username" class="form-control" placeholder="Username" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="email" id="email" class="form-control" placeholder="Email" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="password" id="password" class="form-control" placeholder="Password" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    Register
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById("regForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const data = {
+        username: document.getElementById("username").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
+
+    let res = await fetch("http://10.0.2.2:8000/api/register/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    });
+
+    let json = await res.json();
+
+    if (json.error) {
+        document.getElementById("msg").innerText = json.error;
+    } else {
+        alert("Registrasi berhasil! Silakan login.");
+        window.location.href = "/login/";
+    }
+});
+</script>
+
+</body>
+</html>

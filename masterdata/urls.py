@@ -1,10 +1,14 @@
 from django.urls import path
 from . import views
+from .auth_views import register_api, login_api, logout_api
 
 urlpatterns = [
-    path('tes/', views.tes, name='tes'),
 
-     # CRUD Pengguna
+    # CRUD
+    path('tes/', views.tes, name='tes'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+
+    # CRUD Pengguna
     path('pengguna/', views.pengguna_list, name='pengguna_list'),
     path('pengguna/tambah/', views.pengguna_create, name='pengguna_create'),
     path('pengguna/edit/<int:id>/', views.pengguna_update, name='pengguna_update'),

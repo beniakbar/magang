@@ -2,6 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Pengguna
 from .models import Satpam
 
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
+
 # Create your views here.
 
 def tes(request):
